@@ -1,4 +1,4 @@
-var timerStarted = 0;
+var timerStarted = false;
 // ------- localStorage Set -------
 var stopperCounter = 0;
 var arrayOfNumbers = [],
@@ -37,26 +37,20 @@ if (inumbers) {
 }
 // ------- Start Time -------
 function timerStart() {
-  //timer style
-  if (timerStarted == 0) {
-    //Start cronometer
-    isStarted = true;
-    if (isStarted == true) {
-      timerCount = setInterval(() => {
-        cronometer();
-      }, 100);
-      startTime = new Date().getTime();
-    }
+  if (timerStarted == false) {
+    timerCount = setInterval(() => {
+      cronometer();
+    }, 100);
+    startTime = new Date().getTime();
   }
-  timerStarted = 1;
+  timerStarted = true;
 }
 // ------- Stop Time -------
 function timerStop() {
-  if (timerStarted == 1) {
+  if (timerStarted == true) {
     clearInterval(timerCount);
     arrayMinute.push(totalTimeMin);
     arraySeconds.push(totalTimeSeg);
-    arrayMilli.push(totalTimeMilli);
     document.querySelector(".outputCounter").innerHTML = `${totalTimeMin}:${totalTimeSeg}`;
 
     arrayOfTimes.push(arrayMinute[stopperCounter] + ":" + arraySeconds[stopperCounter] + "<br/>");
@@ -78,8 +72,7 @@ function timerStop() {
     localStorage.setItem("seconds", JSON.stringify(arraySeconds));
     localStorage.setItem("times", JSON.stringify(arrayOfTimes));
     localStorage.setItem("space", JSON.stringify(arrayOfConfig));
-    timerStarted = 0;
-
+    timerStarted = false;
     stopperCounter++;
     sumOutputs();
   }
@@ -184,7 +177,6 @@ function decreaseMin() {
 // ------- Cronometer -------
 var totalTimeMin = {},
   totalTimeSeg = {},
-  totalTimeMilli = {},
   totalTime = {},
   startTime = {},
   timerCount = {};
@@ -193,18 +185,12 @@ function cronometer() {
   totalTime = endTime - startTime;
   totalTimeMin = parseInt((endTime - startTime) / 60000);
   totalTimeSeg = ((totalTime % 60000) / 1000).toFixed(0);
-  totalTimeMilli = (endTime - startTime) % 1000;
+
   if (totalTimeSeg < 10) {
     totalTimeSeg = "0" + totalTimeSeg;
   }
   if (totalTimeMin < 10) {
     totalTimeMin = "0" + totalTimeMin;
-  }
-  if (totalTimeMilli < 100) {
-    totalTimeMilli = "0" + totalTimeMilli;
-  }
-  if (totalTimeMilli < 10) {
-    totalTimeMilli = "00" + totalTimeMilli;
   }
   document.querySelector(".outputCounter").innerHTML = `${totalTimeMin}:${totalTimeSeg}`;
 }
@@ -213,21 +199,20 @@ function cronometer() {
 function sumOutputs() {
   let inputTime = document.getElementById("inputTime").value;
   let inputClient = document.getElementById("inputClientes").value;
-  // \/ \/ \/ SUM MINUTES \/ \/ \/
+
   var sumMinute = 0;
   arrayMinute.forEach((i) => {
     sumMinute += parseInt(i);
     document.querySelector(".infoTime").innerHTML = sumMinute + " min";
   });
-  // \/ \/ \/ REMAINING TIME \/ \/ \/
+
   let getRemainClt = inputClient - stopperCounter;
   document.querySelector(".cltRest").innerHTML = getRemainClt;
-  // \/ \/ \/ Medium Time \/ \/ \/
 
   let totalMedTime = (inputTime - sumMinute) / getRemainClt;
   let totalMedTimeRound = Math.round(totalMedTime);
   document.querySelector(".medTimeOutput").innerHTML = totalMedTimeRound + " min";
-  // \/ \/ \/ RE \/ \/ \/
+
   let getRE = Math.round((sumMinute * 100) / inputTime);
   document.querySelector(".RE").innerHTML = getRE + "%";
 
