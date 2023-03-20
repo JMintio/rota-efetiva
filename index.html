@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  </head>
+  <body class="body">
+    <div class="Pageheader">
+      <img
+        src="/icons/bezier2.svg"
+        style="
+          margin-left: 10px;
+          margin-right: 10px;
+          
+          background-color: rgb(173, 113, 21);
+          padding: 2px;
+          border-radius: 3px;
+          filter: invert();
+        "
+        alt=""
+      />
+      <div class="headerText">Rota Efetiva</div>
+    </div>
+    <ul class="infoHeader">
+      <li class="infoList">
+        Rota efetiva: ‎
+        <div class="infoOutput RE">100%</div>
+      </li>
+      <li class="infoList">
+        Tempo médio: ‎
+        <div class="infoOutput medTimeOutput">0</div>
+      </li>
+      <li class="infoList">
+        Tempo feito: ‎
+        <div class="infoOutput infoTime">0 min</div>
+      </li>
+      <li class="infoList">
+        Clientes restantes: ‎
+        <div class="infoOutput cltRest">0</div>
+      </li>
+      <li class="infoList">
+        Clientes: ‎
+        <input type="number" value="37" class="infoOutput inputClientes" id="inputClientes" />
+      </li>
+      <li type="number" class="infoList">
+        Tempo necessário: ‎
+        <input type="number" value="280" class="infoOutput inputTime" id="inputTime" />
+      </li>
+    </ul>
+    <div style="display: flex">
+      <div class="popupDeleteAll animate__animated animate__bounceInLeft">
+        <div class="popupText">Deseja apagar tudo?</div>
+        <div class="popupBtnBox">
+          <div class="popupYes popupBtn" onclick="popupYes()">Sim</div>
+          <div class="popupNo popupBtn" onclick="popupNo()">Não</div>
+        </div>
+      </div>
+    </div>
+    <div class="dashboardHeader">
+      <div class="headerText1">Visita</div>
+      <div class="headerText2">Tempo</div>
+      <div class="headerText2">Opções</div>
+    </div>
+    <div class="dashboard">
+      <div class="defColumn columnNumber">1</div>
+      <div class="defColumn columnTime">00:00</div>
+      <div class="defColumn columnConfig">
+        <div class="space"></div>
+        <div class="configIcons">
+          <img class="icon" onclick="increaseMin()" src="/icons/add_black_24dp.svg" alt="" />
+          <img class="icon" onclick="deleteTime()" src="/icons/delete_forever_black_24dp.svg" alt="" />
+          <img class="icon" onclick="decreaseMin()" src="/icons/remove_black_24dp.svg" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="timerContainer">
+      <div class="default timerStart" onclick="timerStart()">Começar</div>
+      <div class="default timerStop" onclick="timerStop()">Parar</div>
+      <div class="default deleteAll" onclick="deleteAll()">Apagar</div>
+      <div class="counter" style="cursor: pointer">
+        <img class="icon" src="/icons/stopwatch-fill.svg" alt="" />
+        <div class="outputCounter">00:00</div>
+      </div>
+    </div>
+    <script src="/scripts.js"></script>
+  </body>
+</html>
