@@ -35,6 +35,19 @@ if (inumbers) {
   let arrayOfConfig2 = arrayOfConfig.join("");
   document.querySelector(".space").innerHTML = arrayOfConfig2;
 }
+startTime = {};
+timerCount = {};
+var itimerStart = localStorage.getItem("timerStart");
+if (itimerStart != null) {
+  var itimerStart2 = JSON.parse(itimerStart);
+
+  timerCount = setInterval(() => {
+    cronometer();
+  }, 100);
+  startTime = itimerStart2;
+
+  timerStarted = true;
+}
 // ------- Start Time -------
 function timerStart() {
   if (timerStarted == false) {
@@ -42,13 +55,15 @@ function timerStart() {
       cronometer();
     }, 100);
     startTime = new Date().getTime();
+    localStorage.setItem("timerStart", JSON.stringify(startTime));
+    timerStarted = true;
   }
-  timerStarted = true;
 }
 // ------- Stop Time -------
 function timerStop() {
   if (timerStarted == true) {
     clearInterval(timerCount);
+    localStorage.removeItem("timerStart");
     arrayMinute.push(totalTimeMin);
     arraySeconds.push(totalTimeSeg);
     document.querySelector(".outputCounter").innerHTML = `${totalTimeMin}:${totalTimeSeg}`;
@@ -177,9 +192,7 @@ function decreaseMin() {
 // ------- Cronometer -------
 var totalTimeMin = {},
   totalTimeSeg = {},
-  totalTime = {},
-  startTime = {},
-  timerCount = {};
+  totalTime = {};
 function cronometer() {
   endTime = new Date().getTime();
   totalTime = endTime - startTime;
