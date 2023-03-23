@@ -62,7 +62,21 @@ function timerStart() {
 // ------- Stop Time -------
 function timerStop() {
   if (timerStarted == true) {
+    document.querySelector(".pop-stop-timer").style.display = "flex";
+    document.querySelector(".pop-stop-timer").classList.remove("animate__fadeOutLeft");
+  }
+}
+function pop_stop_no() {
+  document.querySelector(".pop-stop-timer").classList.add("animate__fadeOutLeft");
+}
+function pop_stop_yes() {
+  document.querySelector(".pop-stop-timer").classList.add("animate__fadeOutLeft");
+  if (timerStarted == true) {
     clearInterval(timerCount);
+    if (totalTimeMin >= 15) {
+      totalTimeMin = 15;
+      totalTimeSeg = "00";
+    }
     localStorage.removeItem("timerStart");
     arrayMinute.push(totalTimeMin);
     arraySeconds.push(totalTimeSeg);
@@ -95,9 +109,10 @@ function timerStop() {
 // ------- Delete All-------
 function deleteAll() {
   document.querySelector(".popupDeleteAll").style.display = "flex";
-  document.querySelector(".popupDeleteAll").classList.remove("animate__bounceOutLeft");
+  document.querySelector(".popupDeleteAll").classList.remove("animate__fadeOutLeft");
 }
 function popupYes() {
+  timerStarted = false;
   clearInterval(timerCount);
   arraySeconds.length = 0;
   arrayMinute.length = 0;
@@ -111,10 +126,10 @@ function popupYes() {
   document.querySelector(".columnTime").innerHTML = arrayOfTimes2;
   let arrayOfConfig2 = arrayOfConfig.join("");
   document.querySelector(".space").innerHTML = arrayOfConfig2;
-  document.querySelector(".popupDeleteAll").classList.add("animate__bounceOutLeft");
+  document.querySelector(".popupDeleteAll").classList.add("animate__fadeOutLeft");
 }
 function popupNo() {
-  document.querySelector(".popupDeleteAll").classList.add("animate__bounceOutLeft");
+  document.querySelector(".popupDeleteAll").classList.add("animate__fadeOutLeft");
 }
 // ******************************* Options *******************************
 
