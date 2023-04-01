@@ -13,6 +13,7 @@ var iminutes = localStorage.getItem("minutes");
 var iseconds = localStorage.getItem("seconds");
 var itimes = localStorage.getItem("times");
 var ispace = localStorage.getItem("space");
+
 if (inumbers) {
   let inumbers2 = JSON.parse(inumbers);
   arrayOfNumbers = inumbers2;
@@ -34,11 +35,15 @@ if (inumbers) {
   document.querySelector(".columnTime").innerHTML = arrayOfTimes2;
   let arrayOfConfig2 = arrayOfConfig.join("");
   document.querySelector(".space").innerHTML = arrayOfConfig2;
+
+  sumOutputs();
 }
 startTime = {};
 timerCount = {};
 var itimerStart = localStorage.getItem("timerStart");
 if (itimerStart != null) {
+  var timerContainer = document.querySelector(".timerContainer");
+  timerContainer.classList.add("rotating-border");
   var itimerStart2 = JSON.parse(itimerStart);
 
   timerCount = setInterval(() => {
@@ -51,6 +56,8 @@ if (itimerStart != null) {
 // ------- Start Time -------
 function timerStart() {
   if (timerStarted == false) {
+    var timerContainer = document.querySelector(".timerContainer");
+    timerContainer.classList.add("rotating-border");
     timerCount = setInterval(() => {
       cronometer();
     }, 100);
@@ -63,15 +70,17 @@ function timerStart() {
 function timerStop() {
   if (timerStarted == true) {
     document.querySelector(".pop-stop-timer").style.display = "flex";
-    document.querySelector(".pop-stop-timer").classList.remove("animate__fadeOutLeft");
+    document.querySelector(".pop-stop-timer").classList.remove("animate__bounceOutLeft");
   }
 }
 function pop_stop_no() {
-  document.querySelector(".pop-stop-timer").classList.add("animate__fadeOutLeft");
+  document.querySelector(".pop-stop-timer").classList.add("animate__bounceOutLeft");
 }
 function pop_stop_yes() {
-  document.querySelector(".pop-stop-timer").classList.add("animate__fadeOutLeft");
+  document.querySelector(".pop-stop-timer").classList.add("animate__bounceOutLeft");
   if (timerStarted == true) {
+    var timerContainer = document.querySelector(".timerContainer");
+    timerContainer.classList.remove("rotating-border");
     clearInterval(timerCount);
     if (totalTimeMin >= 15) {
       totalTimeMin = 15;
@@ -109,7 +118,7 @@ function pop_stop_yes() {
 // ------- Delete All-------
 function deleteAll() {
   document.querySelector(".popupDeleteAll").style.display = "flex";
-  document.querySelector(".popupDeleteAll").classList.remove("animate__fadeOutLeft");
+  document.querySelector(".popupDeleteAll").classList.remove("animate__bounceOutLeft");
 }
 function popupYes() {
   timerStarted = false;
@@ -126,10 +135,17 @@ function popupYes() {
   document.querySelector(".columnTime").innerHTML = arrayOfTimes2;
   let arrayOfConfig2 = arrayOfConfig.join("");
   document.querySelector(".space").innerHTML = arrayOfConfig2;
-  document.querySelector(".popupDeleteAll").classList.add("animate__fadeOutLeft");
+  document.querySelector(".popupDeleteAll").classList.add("animate__bounceOutLeft");
+  localStorage.setItem("numbers", JSON.stringify(arrayOfNumbers));
+  localStorage.setItem("counter", JSON.stringify(stopperCounter - 1));
+  localStorage.setItem("minutes", JSON.stringify(arrayMinute));
+  localStorage.setItem("seconds", JSON.stringify(arraySeconds));
+  localStorage.setItem("times", JSON.stringify(arrayOfTimes));
+  localStorage.setItem("space", JSON.stringify(arrayOfConfig));
+  sumOutputs();
 }
 function popupNo() {
-  document.querySelector(".popupDeleteAll").classList.add("animate__fadeOutLeft");
+  document.querySelector(".popupDeleteAll").classList.add("animate__bounceOutLeft");
 }
 // ******************************* Options *******************************
 

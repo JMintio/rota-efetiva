@@ -301,12 +301,12 @@
 /* ******************************** Timer Buttons container ************************************************ */
 .timerContainer {
   background-color: white;
-  padding: 1%;
-  margin: 2%;
-  position: fixed;
+  padding: 2% !important;
+  margin: 1%;
+  position: fixed !important;
   bottom: 0px;
   z-index: 1;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   justify-content: space-around;
@@ -370,3 +370,83 @@
   width: 20px;
   margin: 0px 10px 0px 10px;
 }
+
+/* ---------- Make the codepen look nice ---------- */
+@use postcss-preset-env;
+@use postcss-nested;
+
+@-webkit-keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+.rotating-border {
+  --border-radius: 1rem;
+  --border-size: 0.5rem;
+  --border-bg: conic-gradient(rgb(0, 132, 255), yellow, lime, aqua, blue, magenta, red);
+  --padding: 1rem;
+
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--padding) + var(--border-size));
+  border-radius: var(--border-radius);
+  display: inline-block;
+}
+.rotating-border::before {
+  content: "";
+  display: block;
+  background: var(--border-bg);
+  width: calc(100% * 1.41421356237);
+  padding-bottom: calc(100% * 1.41421356237);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+  z-index: -2;
+  -webkit-animation: spin 5s linear infinite;
+  animation: spin 5s linear infinite;
+}
+.rotating-border--reverse::before {
+  animation-direction: reverse;
+}
+.rotating-border::after {
+  content: "";
+  position: absolute;
+  top: var(--border-size);
+  right: var(--border-size);
+  bottom: var(--border-size);
+  left: var(--border-size);
+  background: rgb(255, 255, 255);
+  z-index: -1;
+  border-radius: calc(var(--border-radius) - var(--border-size));
+}
+/* ---------- End .rotating-border ---------- */
+
+/* ---------- Begin customizing .rotating-border ---------- */
+.rotating-border--google {
+  --border-radius: 0.5rem;
+  --border-size: 2px;
+  --border-bg: conic-gradient(
+    #ffffff 0turn 0.125turn,
+    #ffffff 0.125turn 0.25turn,
+    #ffffff 0.25turn 0.375turn,
+    #40a0ee 0.375turn 0.5turn,
+    #ffffff 0.5turn 0.625turn,
+    #ffffff 0.625turn 0.75turn,
+    #ffffff 0.75turn 0.875turn,
+    #40a0ee 0.875turn 1turn
+  );
+}
+/* ---------- End customizing .rotating-border ---------- */
