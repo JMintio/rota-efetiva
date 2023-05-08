@@ -82,8 +82,8 @@ function pop_stop_yes() {
     var timerContainer = document.querySelector(".timerContainer");
     timerContainer.classList.remove("rotating-border");
     clearInterval(timerCount);
-    if (totalTimeMin >= 15) {
-      totalTimeMin = 15;
+    if (totalTimeMin >= 30) {
+      totalTimeMin = 30;
       totalTimeSeg = "00";
     }
     localStorage.removeItem("timerStart");
